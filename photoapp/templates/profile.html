@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+    <!--    <link rel="stylesheet" href="main.css">-->
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <div class="cardd">
+      <!-- <img src="img.jpg" alt="John" style="width:100%"> -->
+      <div class="m-b-25"> <img class="rounded-circle account-img" id="profile-img" src="{{ user.profile.image.url }}" class="img-radius" alt="User-Profile-Image"> </div>
+
+      <h1 id="profile-h1">{{user.username|title}}</h1>
+      <p class="title">{{user.email}}</p>
+      <p><button id="btn-profile"><a href="{% url 'profile-update' %}" id="auth-links">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Update Profile
+    </a></button></p>
+
+    {% for post in posts %}
+    
+    <div class="post">
+    
+
+    <h2><a class="article-title" style="color: white; font-family: 'Poppins', sans-serif;" href="{% url 'blog-detail' post.id %}">{{ post.title }}</a></h2>
+    
+    <a href="{% url 'blog-detail' post.id %}"><img class="photo" src="{{post.image.url}}" alt="" ></a>
+    <div class="article-metadata">
+    <small class="text-muted">{{ post.date_posted }}</small>
+   
+    {% empty %}
+        <h1>No posts yet!</h1>
+    </div> 
+    {% endfor %}
+    </div>
+
+
+
+      <!-- <p>My Social Live  Below</p> -->
+      <a href="#" id="auth-links"><i class="fa fa-dribbble"></i></a>
+      <a href="#" id="auth-links"><i class="fa fa-twitter"></i></a>
+      <a href="#" id="auth-links"><i class="fa fa-linkedin"></i></a>
+      <a href="#" id="auth-links"><i class="fa fa-facebook"></i></a>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+<!--                <legend class="border-bottom mb-4">Join Today</legend>-->
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+            
+       
+
+     
+    </div>
+{% endblock content %}

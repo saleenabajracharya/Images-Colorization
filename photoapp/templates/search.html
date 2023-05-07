@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="color: white">Search results:</h2>
+{% if posts|length < 1 %}
+<p style="color: white">Your search - <b>{{query}}</b> - did not match any posts.</p>
+{%endif%}
+     {% for posts in posts %}
+     
+        <article class="media content-section">
+            <img class="rounded-cirlce article-img" src="{{ posts.author.profile.image.url }}" alt="">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="#">{{ posts.author }}</a>
+                <small class="text-muted">{{ posts.date_posted }}</small>
+              </div>
+              <h2><a class="article-title" href="{% url 'blog-detail' posts.id %}">{{ posts.title }}</a></h2>
+              <div class="container" >
+                <a class="article-img" href="{% url 'blog-detail' posts.id %}"><img class="photo" src="{{posts.image.url}}" alt=""></a>
+                
+              </div>
+            </div>
+            <br>
+          </article>
+    {% endfor  %} 
+{% endblock content %}
